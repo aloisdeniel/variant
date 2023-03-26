@@ -72,7 +72,6 @@ VariantsDataPropertyDefinition? analyzeDataProperty(
               if (variantKey is PrefixedIdentifier) {
                 final enumLibrary =
                     variantKey.prefix.staticType?.element?.library;
-                print('FOUND');
                 if (enumLibrary != null) {
                   final variantDefinitions =
                       analyzeVariants(LibraryReader(enumLibrary));
