@@ -105,7 +105,7 @@ final accent = colors.accent; // Color.fromARGB(255, 56, 98, 245)
 
 ## Flutter theming example
 
-To get a more complete example, and understand how the variants can be used in a Flutter context, take a look at [the example](https://github.com/aloisdeniel/variant/packages/flutter_example).
+To get a more complete example, and understand how the variants can be used in a Flutter context, take a look at [the example](https://github.com/aloisdeniel/variant/tree/main/packages/flutter_example).
 
 ## Q&A
 
