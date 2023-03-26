@@ -1,0 +1,28 @@
+# Read about `build.yaml` at https://pub.dev/packages/build_config
+targets:
+  $default:
+    builders:
+      variant_generator|variant:
+        generate_for:
+          - lib/**/*.dart
+      variant_generator|variant_data:
+        generate_for:
+          - lib/**/*.dart
+
+builders:
+  variant:
+    import: "package:variant_generator/builder.dart"
+    builder_factories: ["variantBuilder"]
+    build_extensions: {".dart": [".variant.g.part"]}
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: ["source_gen|combining_builder"]
+
+  variant_data:
+    import: "package:variant_generator/builder.dart"
+    builder_factories: ["variantDataBuilder"]
+    build_extensions: {".dart": [".variant_data.g.part"]}
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: ["source_gen|combining_builder"]
+
