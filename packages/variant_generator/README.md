@@ -105,7 +105,7 @@ final accent = colors.accent; // Color.fromARGB(255, 56, 98, 245)
 
 ## Limitations
 
-Since all combination are represented as a single `int` value of `64` bits, the maximum number of variant values allowed is `64`.
+Since all combinations are represented as a single `int` value of `64` bits, the maximum total number of variant values allowed is `64`.
 
 ## Flutter theming example
 
