@@ -13,8 +13,8 @@ class ColorsData {
     final flag = variant.hashCode;
     return ColorsData(
       accent: () {
-        //
-        if (flag & 0x0 == 0x0) {
+        // Brightness.dark ~ 10
+        if (flag & 0x2 == 0x2) {
           return (() => const Color.fromARGB(255, 85, 26, 235))();
         }
         return (() => const Color.fromARGB(255, 85, 26, 235))();

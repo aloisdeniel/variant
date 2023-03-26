@@ -67,7 +67,8 @@ class VariantGenerator extends gen.Generator {
       body.writeln('switch(this){');
       for (var value in variant.values) {
         body.writeln('case ${variant.name}.${value.name}:');
-        body.writeln('return 0x${value.flag.toRadixString(16)};');
+        body.writeln(
+            'return 0x${value.flag.toRadixString(16)}; // ${value.flag.toRadixString(2)}');
       }
       body.writeln('}');
 

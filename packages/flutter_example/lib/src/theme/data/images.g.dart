@@ -13,16 +13,16 @@ class ImagesData {
     final flag = variant.hashCode;
     return ImagesData(
       logo: () {
-        //
-        if (flag & 0x0 == 0x0) {
+        // Brightness.dark ~ 10
+        if (flag & 0x2 == 0x2) {
           return (() =>
               const NetworkImage('htts://myapp.com/images/en/dark/logo.png'))();
-        } //
-        if (flag & 0x0 == 0x0) {
+        } // Brightness.dark, Language.fr ~ 10000000000010
+        if (flag & 0x2002 == 0x2002) {
           return (() =>
               const NetworkImage('htts://myapp.com/images/fr/dark/logo.png'))();
-        } //
-        if (flag & 0x0 == 0x0) {
+        } // Brightness.light, Language.fr ~ 10000000000001
+        if (flag & 0x2001 == 0x2001) {
           return (() => const NetworkImage(
               'htts://myapp.com/images/fr/light/logo.png'))();
         }

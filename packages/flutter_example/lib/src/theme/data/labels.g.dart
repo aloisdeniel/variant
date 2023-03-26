@@ -13,8 +13,8 @@ class LabelsData {
     final flag = variant.hashCode;
     return LabelsData(
       hello: () {
-        //
-        if (flag & 0x0 == 0x0) {
+        // Language.fr ~ 10000000000000
+        if (flag & 0x2000 == 0x2000) {
           return (() => 'Bonjour')();
         }
         return (() => 'Hello')();

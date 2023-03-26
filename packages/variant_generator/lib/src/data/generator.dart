@@ -52,7 +52,8 @@ class VariantDataGenerator extends gen.Generator {
 
           for (var variant in property.variantFactories) {
             fromVariantBody.write(
-                '// ${variant.variants.map((e) => '${e.variant}.${e.name}').join(', ')}\n');
+                '// ${variant.variants.map((e) => '${e.variant}.${e.name}').join(', ')} '
+                '~ ${variant.combinedFlag.toRadixString(2)}\n');
             final combinedFlag = '0x${variant.combinedFlag.toRadixString(16)}';
             fromVariantBody
                 .write('if (flag & $combinedFlag == $combinedFlag) {');

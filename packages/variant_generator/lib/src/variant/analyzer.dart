@@ -13,7 +13,7 @@ List<VariantDefinition> analyzeVariants(LibraryReader library) {
 
   final result = <VariantDefinition>[];
 
-  var index = 1;
+  var index = 0;
   for (var flagEnum in flagEnums) {
     final values = <VariantValueDefinition>[];
     final constEnum = flagEnum.children.whereType<FieldElement>().toList();

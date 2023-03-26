@@ -18,6 +18,8 @@ List<VariantsDataDefinition> analyzeData(
       .whereType<ClassElement>()
       .toList();
 
+  final variantDefinitions = loadVariants(library);
+
   final result = <VariantsDataDefinition>[];
   for (var dataClass in dataClasses) {
     final properties = <VariantsDataPropertyDefinition>[];
@@ -30,7 +32,8 @@ List<VariantsDataDefinition> analyzeData(
 
       final ast = getter.findAstNode();
       if (ast != null) {
-        final property = analyzeDataProperty(field.name, ast);
+        final property =
+            analyzeDataProperty(field.name, ast, variantDefinitions);
         if (property != null) properties.add(property);
       }
     }
@@ -46,9 +49,23 @@ List<VariantsDataDefinition> analyzeData(
   return result;
 }
 
+List<VariantDefinition> loadVariants(LibraryReader library) {
+  final result = <VariantDefinition>[];
+  for (var importedLibrary in library.element.importedLibraries) {
+    result.addAll(analyzeVariants(LibraryReader(importedLibrary)));
+  }
+
+  return result;
+
+  //library.element.session.getResolvedLibrary(path)
+  //final variantLibrary = library.findType(name)?.library;
+  //return analyzeVariants(LibraryReader(variantLibrary!));
+}
+
 VariantsDataPropertyDefinition? analyzeDataProperty(
   String name,
   AstNode node,
+  List<VariantDefinition> variantDefinitions,
 ) {
   final body = node.childEntities.whereType<ExpressionFunctionBody>().first;
   final instance = body.expression;
@@ -70,19 +87,13 @@ VariantsDataPropertyDefinition? analyzeDataProperty(
 
             for (var variantKey in variantKeys.elements) {
               if (variantKey is PrefixedIdentifier) {
-                final enumLibrary =
-                    variantKey.prefix.staticType?.element?.library;
-                if (enumLibrary != null) {
-                  final variantDefinitions =
-                      analyzeVariants(LibraryReader(enumLibrary));
-                  final value = variantDefinitions
-                      .expand((element) => element.values)
-                      .firstWhere((element) =>
-                          element.variant == variantKey.prefix.name &&
-                          element.name == variantKey.identifier.name);
+                final value = variantDefinitions
+                    .expand((element) => element.values)
+                    .firstWhere((element) =>
+                        element.variant == variantKey.prefix.name &&
+                        element.name == variantKey.identifier.name);
 
-                  variants.add(value);
-                }
+                variants.add(value);
               }
             }
             variantFactories.add(
