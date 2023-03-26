@@ -7,11 +7,15 @@ part of 'colors.dart';
 // **************************************************************************
 
 class ColorsData {
-  const ColorsData({required this.accent});
+  const ColorsData(
+    this._flag, {
+    required this.accent,
+  });
 
   factory ColorsData.fromVariant(Variant variant) {
     final flag = variant.hashCode;
     return ColorsData(
+      variant.flag & 0x2, // 10
       accent: () {
         // Brightness.dark ~ 10
         if (flag & 0x2 == 0x2) {
@@ -22,5 +26,14 @@ class ColorsData {
     );
   }
 
+  final int _flag;
+
   final Color accent;
+
+  ColorsData update(Variant variant) {
+    if (_flag != variant.flag & 0x2) {
+      return ColorsData.fromVariant(variant);
+    }
+    return this;
+  }
 }

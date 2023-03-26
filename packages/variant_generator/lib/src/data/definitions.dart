@@ -7,6 +7,21 @@ class VariantsDataDefinition {
   });
   final String name;
   final List<VariantsDataPropertyDefinition> properties;
+
+  Set<VariantValueDefinition> get dependsOnVariants {
+    return properties
+        .map((e) => e.dependsOnVariants)
+        .expand((element) => element)
+        .toSet();
+  }
+
+  int get dependencyFlag {
+    var result = 0x0;
+    for (var variant in dependsOnVariants) {
+      result |= variant.flag;
+    }
+    return result;
+  }
 }
 
 class VariantsDataPropertyDefinition {

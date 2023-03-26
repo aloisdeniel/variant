@@ -7,11 +7,15 @@ part of 'images.dart';
 // **************************************************************************
 
 class ImagesData {
-  const ImagesData({required this.logo});
+  const ImagesData(
+    this._flag, {
+    required this.logo,
+  });
 
   factory ImagesData.fromVariant(Variant variant) {
     final flag = variant.hashCode;
     return ImagesData(
+      variant.flag & 0x2003, // 10000000000011
       logo: () {
         // Brightness.dark, Language.fr ~ 10000000000010
         if (flag & 0x2002 == 0x2002) {
@@ -32,5 +36,14 @@ class ImagesData {
     );
   }
 
+  final int _flag;
+
   final ImageProvider logo;
+
+  ImagesData update(Variant variant) {
+    if (_flag != variant.flag & 0x2003) {
+      return ImagesData.fromVariant(variant);
+    }
+    return this;
+  }
 }

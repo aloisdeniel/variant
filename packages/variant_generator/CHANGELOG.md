@@ -1,3 +1,7 @@
+## 0.1.0-alpha.5
+
+- Added `update` method for data classes, to allow efficient updates, only when necessary.
+
 ## 0.1.0-alpha.4
 
 - Fixed variant ordering in data classes.

@@ -1,3 +1,4 @@
+import 'package:flutter_example/src/variants/app_variant.dart';
 import 'package:flutter_example/src/variants/variants.dart';
 
 import 'data/colors.dart';
@@ -21,6 +22,16 @@ class AppThemeData {
   final ColorsData colors;
   final ImagesData images;
   final LabelsData labels;
+
+  /// Optimized update.
+  AppThemeData update(Variant variant) {
+    return AppThemeData(
+      variant: variant,
+      colors: colors.update(variant),
+      images: images.update(variant),
+      labels: labels.update(variant),
+    );
+  }
 
   @override
   int get hashCode => variant.hashCode;

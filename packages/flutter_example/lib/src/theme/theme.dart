@@ -25,8 +25,10 @@ class _AppThemeState extends State<AppTheme> {
     final variant = AppVariant.of(context);
     final data = _data;
     // We only update theme data if variant changed
-    if (data == null || data.variant != variant) {
+    if (data == null) {
       _data = AppThemeData.fromVariant(variant);
+    } else if (data.variant != variant) {
+      _data = data.update(variant);
     }
   }
 

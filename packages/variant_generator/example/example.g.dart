@@ -65,13 +65,15 @@ class Variant {
 }
 
 class LabelsData {
-  const LabelsData({
+  const LabelsData(
+    this.flag, {
     required this.hello,
   });
 
   factory LabelsData.fromVariant(Variant data) {
     final flag = data.flag;
     return LabelsData(
+      variant.flag & 0x67774,
       hello: () {
         // {Language.fr, Brightness.dark}
         if (flag ^ 0x3344 == 0) {
@@ -83,5 +85,14 @@ class LabelsData {
     );
   }
 
+  LabelsData update(Variant variant) {
+    if (flag != variant.flag) {
+      return LabelsData.fromVariant(variant);
+    }
+
+    return this;
+  }
+
+  final int flag;
   final String hello;
 }

@@ -27,7 +27,13 @@ class VariantDataGenerator extends gen.Generator {
 
         // Constructor
         final constructor = ConstructorBuilder()..constant = true;
-
+        constructor.requiredParameters.add(
+          Parameter(
+            (b) => b
+              ..name = '_flag'
+              ..toThis = true,
+          ),
+        );
         for (var property in dataClass.properties) {
           constructor.optionalParameters.add(
             Parameter(
@@ -45,6 +51,12 @@ class VariantDataGenerator extends gen.Generator {
         final fromVariantBody = StringBuffer();
         fromVariantBody.write('final flag = variant.hashCode;');
         fromVariantBody.write('return ${dataClass.name}(');
+        final dependencyFlag =
+            '0x${dataClass.dependencyFlag.toRadixString(16)}';
+        fromVariantBody.write(
+          'variant.flag & $dependencyFlag,'
+          ' // ${dataClass.dependencyFlag.toRadixString(2)}\n',
+        );
 
         for (var property in dataClass.properties) {
           fromVariantBody.write(property.name);
@@ -80,6 +92,14 @@ class VariantDataGenerator extends gen.Generator {
         result.constructors.add(fromVariant.build());
 
         // Fields
+        result.fields.add(
+          Field(
+            (b) => b
+              ..name = '_flag'
+              ..type = refer('int')
+              ..modifier = FieldModifier.final$,
+          ),
+        );
         for (var property in dataClass.properties) {
           result.fields.add(
             Field(
@@ -90,6 +110,26 @@ class VariantDataGenerator extends gen.Generator {
             ),
           );
         }
+
+        // Method "update"
+
+        final updateBody = StringBuffer();
+        updateBody.writeln('if (_flag != variant.flag & $dependencyFlag) {');
+        updateBody.writeln(' return ${dataClass.name}.fromVariant(variant);');
+        updateBody.writeln('}');
+        updateBody.writeln('return this;');
+
+        final update = MethodBuilder()
+          ..name = 'update'
+          ..returns = refer(dataClass.name)
+          ..body = Code(updateBody.toString());
+
+        update.requiredParameters.add(
+          Parameter((b) => b
+            ..name = 'variant'
+            ..type = refer('Variant')),
+        );
+        result.methods.add(update.build());
 
         library.body.add(result.build());
       }
