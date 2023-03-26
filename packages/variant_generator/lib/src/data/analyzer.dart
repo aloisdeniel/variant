@@ -96,6 +96,7 @@ VariantsDataPropertyDefinition? analyzeDataProperty(
                 variants.add(value);
               }
             }
+
             variantFactories.add(
               VariantsDataPropertyVariantFactoryDefinition(
                 factory: factory,
@@ -106,6 +107,10 @@ VariantsDataPropertyDefinition? analyzeDataProperty(
         }
       }
     }
+
+    // We prioritize the variants with most combination first
+    variantFactories
+        .sort((a, b) => b.variants.length.compareTo(a.variants.length));
 
     return VariantsDataPropertyDefinition(
       name: name,
