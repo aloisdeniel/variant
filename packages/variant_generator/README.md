@@ -103,6 +103,32 @@ final colors = ColorsData.fromVariant(variant);
 final accent = colors.accent; // Color.fromARGB(255, 56, 98, 245)
 ```
 
+A great feature of data classes is also fine grained updates. By using the `update` method, a new instance will be created only if one of its dependencies changed.
+
+```dart
+var variant = Variant(
+    brightness: Brightness.dark,
+    animation: Animation.minimal,
+);
+var colors = ColorsData.fromVariant(variant);
+
+variant = Variant(
+    brightness: Brightness.dark,
+    animation: Animation.all,
+);
+
+colors = colors.update(variant); /// Returned instance is the same since none of its properties depends on Animation.all or Animation.minimal.
+
+variant = Variant(
+    brightness: Brightness.light,
+    animation: Animation.all,
+);
+
+colors = colors.update(variant); /// A new instance is created with `ColorsData.fromVariant(variant)` because `Brightness.dark` changed.
+
+
+```
+
 ## Limitations
 
 Since all combinations are represented as a single `int` value of `64` bits, the maximum total number of variant values allowed is `64`.
