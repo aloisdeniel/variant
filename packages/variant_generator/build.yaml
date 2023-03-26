@@ -2,15 +2,15 @@
 targets:
   $default:
     builders:
-      variant_generator|variant:
+      variant_generator|variant_generator:
         generate_for:
           - lib/**/*.dart
-      variant_generator|variant_data:
+      variant_generator|variant_data_generator:
         generate_for:
           - lib/**/*.dart
 
 builders:
-  variant:
+  variant_generator:
     import: "package:variant_generator/builder.dart"
     builder_factories: ["variantBuilder"]
     build_extensions: {".dart": [".variant.g.part"]}
@@ -18,7 +18,7 @@ builders:
     build_to: cache
     applies_builders: ["source_gen|combining_builder"]
 
-  variant_data:
+  variant_data_generator:
     import: "package:variant_generator/builder.dart"
     builder_factories: ["variantDataBuilder"]
     build_extensions: {".dart": [".variant_data.g.part"]}

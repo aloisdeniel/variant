@@ -1,13 +1,13 @@
 name: variant_generator
 description: A variant generator for FLutter applications.
-version:  0.1.0-alpha
+version:  0.1.0-alpha.1
 homepage: https://github.com/aloisdeniel/variant
 
 environment:
   sdk: '>=2.18.0 <3.0.0'
   
 dependencies:
-  variant: ^1.0.0
+  variant: ^0.1.0-alpha.1
   analyzer: '>=4.6.0 <6.0.0'
   build: ^2.3.1
   source_gen: ^1.2.7
