@@ -103,14 +103,18 @@ final colors = ColorsData.fromVariant(variant);
 final accent = colors.accent; // Color.fromARGB(255, 56, 98, 245)
 ```
 
+## Limitations
+
+Since all combination are represented as a single `int` value of `64` bits, the maximum number of variant values allowed is `64`.
+
 ## Flutter theming example
 
-To get a more complete example, and understand how the variants can be used in a Flutter context, take a look at [the example](https://github.com/aloisdeniel/variant/packages/flutter_example).
+To get a more complete example, and understand how the variants can be used in a Flutter context, take a look at [the example](https://github.com/aloisdeniel/variant/tree/main/packages/flutter_example).
 
 ## Q&A
 
 > Why using it for theming instead of regular options like Material?
 
-The main advantage of custom variants is that it is really specific to your usage. It means that it is a lot less generic than the Material theming, but it also means that it provides a better optimization. In fact, a theme data instance is associated to a variant, and an difference is a lot more efficient to calculate since a variant is represented as a single `int` (*instead of comparing the whole data tree to detect a difference*).
+The main advantage of custom variants is that it is really specific to your usage. It means that it is a lot less generic than the Material theming, but it also means that it provides a better optimization. In fact, a theme data instance is associated to a variant, and a difference is a lot more efficient to calculate since a variant is represented as a single `int` (*instead of comparing the whole data tree to detect a difference*).
 
-Another advantage is that data classes will be really adapter to you custom design system, by adoption the right naming conventions and properties. For example, your app might have more themes than just the `dark` and `light` modes. Also you might need only ten colors, and by using Material's theme you would bring a lot of confusion by exposing properties that must not be used. It also mean that you only instanciate what you need in memory, and not all the widget specific themes that you might never use in reality.
+Another advantage is that data classes will be really adapted to you custom design system, by adoption the right naming conventions and properties. For example, your app might have more themes than just the `dark` and `light` modes. Also you might need only ten colors, and by using Material's theme you would bring a lot of confusion by exposing properties that must not be used. It also mean that you only instanciate what you need in memory, and not all the widget specific themes that you might never use in reality.
