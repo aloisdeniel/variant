@@ -45,7 +45,7 @@ To generate the `Variant` class, run the build runner from the CLI :
 > flutter pub run build_runner build
 ```
 
-You can now create a global `Variant` instance, which is a combination of each one of your variants.
+You can now create a global `Variant` instance, which is a combination of each one of your variants with `<variant>Flag` declinations.
 
 ```dart
 final variant = Variant(
@@ -53,11 +53,11 @@ final variant = Variant(
     animation: Animation.minimal,
 );
 
-if(variant.matchesAny({ Animation.all, Animation.minimal })) {
+if(variant.matchesAny({ AnimationFlag.all, AnimationFlag.minimal })) {
     print('Matches these variants!');
 }
 
-if(variant.matchesEvery({ Brightness.dark, Animation.minimal })) {
+if(variant.matchesEvery({ BrightnessFlag.dark, AnimationFlag.minimal })) {
     print('Matches these variants!');
 }
 ```

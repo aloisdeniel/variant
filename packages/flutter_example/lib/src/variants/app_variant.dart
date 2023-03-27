@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:flutter/widgets.dart' hide Animation;
+import 'package:variant/variant.dart';
 import 'variants.dart';
 
 class AppVariant extends StatelessWidget {
@@ -29,11 +30,11 @@ class AppVariant extends StatelessWidget {
         .data;
   }
 
-  static bool matchesAny(BuildContext context, Set<Object> variants) {
+  static bool matchesAny(BuildContext context, Set<VariantFlag> variants) {
     return of(context).matchesAny(variants);
   }
 
-  static bool matchesEvery(BuildContext context, Set<Object> variants) {
+  static bool matchesEvery(BuildContext context, Set<VariantFlag> variants) {
     return of(context).matchesEvery(variants);
   }
 

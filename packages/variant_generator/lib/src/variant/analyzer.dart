@@ -6,7 +6,7 @@ import 'definitions.dart';
 
 List<VariantDefinition> analyzeVariants(LibraryReader library) {
   final flagEnums = library
-      .annotatedWith(TypeChecker.fromRuntime(VariantFlag))
+      .annotatedWith(TypeChecker.fromRuntime(VariantComponent))
       .map((element) => element.element)
       .whereType<EnumElement>()
       .toList();

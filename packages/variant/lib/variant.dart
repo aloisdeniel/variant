@@ -1,9 +1,9 @@
 library variant;
 
-const variant = VariantFlag();
+const variant = VariantComponent();
 
-class VariantFlag {
-  const VariantFlag();
+class VariantComponent {
+  const VariantComponent();
 }
 
 const variantData = VariantData();
